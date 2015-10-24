@@ -1,22 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/ValidateLocation.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/GeoLocation.js') }}"></script>
-    <script>
-
-    </script>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+{% include "header.html" %}
 <body>
-    {{name}}
-    <div id="googleMap" style="width:500px;height:380px;"></div>
-    <p id="text">Is this your location?</p>
-    <button id="yes_button" onclick="position_is_right()">YES</button>
-    <button id="no_button" onclick="position_is_not_right()">NO</button>
+{% include "geolocation.html" %}
 </body>
 </html>

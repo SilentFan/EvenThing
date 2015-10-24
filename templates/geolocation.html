@@ -1,0 +1,16 @@
+<div id="get_position">
+    <div id="googleMap" style="width:500px;height:380px;"></div>
+    <div class="address_elements">
+        <p id="text">Is this your location?</p>
+
+        <button id="yes_button" onclick="positionIsRight()">YES</button>
+        <button id="no_button" onclick="positionIsNotRight()">NO</button>
+
+        <div style="visibility: hidden;" id="change_address">
+            <input  id="address_input" placeholder="Enter your address">
+            <button id="address_submit">Change</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/ValidateLocation.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/GeoLocation.js') }}"></script>

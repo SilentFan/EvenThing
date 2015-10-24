@@ -3,27 +3,74 @@
  */
 var lat = null;
 var lng = null;
-request = new XMLHttpRequest();
-request.onreadystatechange = function() {
-    if (request.readyState == 4 && request.status == 200) {
-        var data = JSON.parse(request.responseText)['location'];
+getLatAndLong = new XMLHttpRequest();
+getAddress = new XMLHttpRequest();
+var map, mapProp, geocoder;
+var markers = [];
+
+function addMarker(location) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function init() {
+    var myCenter = new google.maps.LatLng(lat, lng);
+    geocoder = new google.maps.Geocoder();
+    mapProp = {
+        center:new google.maps.LatLng(lat, lng),
+        zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        var marker = new google.maps.Marker({
+        position:myCenter,
+    });
+    addMarker(myCenter);
+    setMapOnAll(map);
+    google.maps.event.addDomListener(window, 'load', init);
+}
+
+getLatAndLong.onreadystatechange = function() {
+    if (getLatAndLong.readyState == 4 && getLatAndLong.status == 200) {
+        var data = JSON.parse(getLatAndLong.responseText)['location'];
         lat = data['lat'];
         lng = data['lng'];
-        function init() {
-            var myCenter = new google.maps.LatLng(lat, lng);
-            var mapProp = {
-            center:new google.maps.LatLng(lat, lng),
-            zoom:15,
-            mapTypeId:google.maps.MapTypeId.ROADMAP
-          };
-            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-            var marker=new google.maps.Marker({
-              position:myCenter,
-              });
-              marker.setMap(map);
-        }
-        google.maps.event.addDomListener(window, 'load', init);
+        init();
+        getAddress.open("POST",
+                        "https://maps.googleapis.com/maps/api/geocode/json?latlng="
+                        + lat + "," + lng + "&&key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M",
+                        false);
+        getAddress.send();
     }
+};
+
+getAddress.onreadystatechange = function() {
+    if (getAddress.readyState == 4 && getAddress.status == 200) {
+        var address = JSON.parse(getAddress.responseText);
+        var formatedAdress;
+        for (var i = 0; i < address.results.length; i++) {
+             formatedAdress = address.results[i].formatted_address;
+             break;
+        }
+        document.getElementById("text").innerHTML += " " + formatedAdress;
+    }
+};
+
+lat = Cookies.get("lat");
+lng = Cookies.get("lng");
+
+if (lat != undefined || lng != undefined) {
+    init();
+} else {
+    getLatAndLong.open("POST", 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M', false);
+    getLatAndLong.send();
 }
-request.open("POST", "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M", true);
-request.send();
