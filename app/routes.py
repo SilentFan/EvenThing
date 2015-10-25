@@ -8,4 +8,3 @@ from modules import user
 def hello():
     u = user.User("New", "User")
     return render_template('index.html', name=u.surname)
-
