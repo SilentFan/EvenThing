@@ -57,20 +57,21 @@ getAddress.onreadystatechange = function() {
     if (getAddress.readyState == 4 && getAddress.status == 200) {
         var address = JSON.parse(getAddress.responseText);
         var formatedAdress;
-        for (var i = 0; i < address.results.length; i++) {
-             formatedAdress = address.results[i].formatted_address;
-             break;
-        }
+        formatedAdress = address.results[0].formatted_address;
         document.getElementById("text").innerHTML += " " + formatedAdress;
     }
 };
 
-lat = Cookies.get("lat");
-lng = Cookies.get("lng");
+function startGeolocation() {
+    lat = Cookies.get("lat");
+    lng = Cookies.get("lng");
 
-if (lat != undefined || lng != undefined) {
-    init();
-} else {
-    getLatAndLong.open("POST", 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M', false);
-    getLatAndLong.send();
+    if (lat != undefined || lng != undefined) {
+        init();
+    } else {
+        getLatAndLong.open("POST", 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M', false);
+        getLatAndLong.send();
+    }
 }
+
+startGeolocation();

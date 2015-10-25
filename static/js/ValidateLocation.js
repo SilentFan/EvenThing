@@ -2,34 +2,26 @@
  * Created by greg on 10/23/15.
  */
 
-function positionIsRight() {
-    document.cookie = "lat="+lat+ ";lng="+lng;
-    console.log(lat + " " + lng);
-    $(document).ready(function() {
-        $(".address_elements").css("visibility","hidden");
-        $("#change_address").css("visibility","hidden");
-    });
-}
-
 function clearMarkers() {
   setMapOnAll(null);
 }
+var addressConfirm = document.getElementById("confirm _address");
+addressConfirm.addEventListener('click', function() {
+    if (Cookies.get("fucking-eu-cookies") == 1) {
+        Cookies.set("lat", lat);
+        Cookies.set("lng", lng);
+        document.getElementById("address_text").innerHTML = "Address successfully updated";
+    }
+});
 
-function positionIsNotRight() {
-    console.log("no right nigga");
+var addressSubmit = document.getElementById("address_submit");
+addressSubmit.addEventListener('click', function() {
+    setMapOnAll(null);
+    clearMarkers();
+    markers = [];
+    geocodeAddress();
+});
 
-    $(document).ready(function() {
-       $("#change_address").css("visibility","visible");
-    });
-
-    var addressSubmit = document.getElementById("address_submit");
-    addressSubmit.addEventListener('click', function() {
-        setMapOnAll(null);
-        clearMarkers();
-        markers = [];
-        geocodeAddress();
-    });
-}
 
 function geocodeAddress() {
     var address_value = document.getElementById('address_input').value;
@@ -38,11 +30,6 @@ function geocodeAddress() {
         map.setCenter(results[0].geometry.location);
         lat = results[0].geometry.location.lat();
         lng = results[0].geometry.location.lng();
-
-        if(Cookies.get("fucking-eu-cookies")) {
-            document.cookie = "lat=" + lat;
-            document.cookie = "lng=" + lng;
-        }
 
         var marker = new google.maps.Marker({
             map: map,
@@ -62,9 +49,7 @@ function changeLatAndLong() {
 
         }
     };
-
     var myCenter = new google.maps.LatLng(lat, lng);
-
     var marker = new google.maps.Marker({
               position:myCenter,
     });
