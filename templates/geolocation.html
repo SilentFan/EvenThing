@@ -1,0 +1,13 @@
+<div id="get_position">
+    <div class="address_elements">
+        <div id="googleMap" style=""></div>
+        <p id="address_text">Is this your location?</p>
+        <div id="change_address">
+            <input class="input" id="address_input" placeholder="Enter your address">
+            <div class="button" id="address_submit">Change!</div>
+            <div class="button" id="confirm_address">Yes!</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/GeoLocation.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/ValidateLocation.js') }}"></script>

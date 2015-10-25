@@ -1,0 +1,54 @@
+html {
+    font-family: 'Consolas';
+}
+
+.button {
+    width: 100px;
+    text-align: center;
+}
+
+.button:hover {
+    color: black;
+    background-color: lightgrey;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.26);
+}
+
+.button, .input {
+    height: 30px;
+    display: inline-block;
+    position: relative;
+    line-height: 32px;
+    font-size: 0.9em;
+    background-color: #fff;
+    color: #646464;
+    border-radius: 4px;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+#get_position {
+    width: 520px;
+    height: 500px;
+    border-radius: 4px;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    color: whitesmoke;
+    background-color: #f25822;
+}
+
+.address_elements {
+    position: relative;
+    left: 2%;
+    top: 1%;
+}
+
+#googleMap {
+    width:500px;
+    height:380px;
+    border-radius: 4px;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
