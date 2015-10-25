@@ -1,8 +1,10 @@
 /**
  * Created by greg on 10/23/15.
  */
-var lat = null;
-var lng = null;
+var lat, lng;
+lat = Cookies.get("lat");
+lng = Cookies.get("lng");
+
 getLatAndLong = new XMLHttpRequest();
 getAddress = new XMLHttpRequest();
 var map, mapProp, geocoder;
@@ -62,16 +64,11 @@ getAddress.onreadystatechange = function() {
     }
 };
 
-function startGeolocation() {
-    lat = Cookies.get("lat");
-    lng = Cookies.get("lng");
-
-    if (lat != undefined || lng != undefined) {
-        init();
-    } else {
-        getLatAndLong.open("POST", 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M', false);
-        getLatAndLong.send();
-    }
+console.log(lat + " " + lng);
+if (lat) {
+    init();
+    console.log("yeah");
+} else {
+    getLatAndLong.open("POST", 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAecSYHFPQm8laP50QAwxbIBh9_VVTdr1M', false);
+    getLatAndLong.send();
 }
-
-startGeolocation();
