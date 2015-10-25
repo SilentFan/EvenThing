@@ -58,7 +58,7 @@ getAddress.onreadystatechange = function() {
         var address = JSON.parse(getAddress.responseText);
         var formatedAdress;
         formatedAdress = address.results[0].formatted_address;
-        document.getElementById("text").innerHTML += " " + formatedAdress;
+        document.getElementById("address_text").innerHTML += " " + formatedAdress;
     }
 };
 

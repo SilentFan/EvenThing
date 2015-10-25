@@ -5,7 +5,7 @@
 function clearMarkers() {
   setMapOnAll(null);
 }
-var addressConfirm = document.getElementById("confirm _address");
+var addressConfirm = document.getElementById("confirm_address");
 addressConfirm.addEventListener('click', function() {
     if (Cookies.get("fucking-eu-cookies") == 1) {
         Cookies.set("lat", lat);
@@ -35,7 +35,7 @@ function geocodeAddress() {
             map: map,
             position: results[0].geometry.location
         });
-        document.getElementById("text").innerHTML = "Is this your location? " + address_value;
+        document.getElementById("address_text").innerHTML = "Is this your location? " + address_value;
         } else {
          alert('Geocode was not successful for the following reason: ' + status);
         }
